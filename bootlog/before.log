@@ -1,0 +1,5 @@
+[    0.000] Linux version 6.6 (adas-virt)
+[    0.812] i2c imu probed
+[    1.940] spi canfd probed
+[    3.120] modules loaded serially
+[    5.480] camera pipeline ready

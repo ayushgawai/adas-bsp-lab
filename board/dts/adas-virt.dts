@@ -1,0 +1,25 @@
+/dts-v1/;
+#include <dt-bindings/gpio/gpio.h>
+#include <dt-bindings/interrupt-controller/irq.h>
+/ {
+  model = "ADAS Virtual Board (QEMU virt)";
+  compatible = "adas,virt", "arm,virt";
+  #address-cells = <2>; #size-cells = <2>;
+  chosen { stdout-path = "serial0:115200n8"; bootargs = "console=ttyAMA0 root=/dev/vda rw"; };
+  memory@40000000 { device_type = "memory"; reg = <0x0 0x40000000 0x0 0x40000000>; };
+  soc {
+    compatible = "simple-bus"; #address-cells = <2>; #size-cells = <2>; ranges;
+    serial0: serial@9000000 { compatible = "arm,pl011", "arm,primecell"; reg = <0x0 0x09000000 0x0 0x1000>; clock-frequency = <24000000>; };
+    eth0: ethernet@a000000 { compatible = "virtio,mmio"; reg = <0x0 0x0a000000 0x0 0x200>; /* ponytail: virtio-net placeholder MAC, real MAC/PHY on silicon */ mac-address = [ 52 54 00 12 34 56 ]; };
+    i2c0: i2c@b000000 { compatible = "arm,versatile-i2c"; reg = <0x0 0x0b000000 0x0 0x1000>; #address-cells = <1>; #size-cells = <0>;
+      imu@68 { compatible = "adas,mock-imu"; reg = <0x68>; interrupt-parent = <&gic>; interrupts = <0 42 4>; };
+    };
+    spi0: spi@c000000 { compatible = "arm,pl022", "arm,primecell"; reg = <0x0 0x0c000000 0x0 0x1000>; #address-cells = <1>; #size-cells = <0>;
+      canfd@0 { compatible = "adas,mock-canfd"; reg = <0>; spi-max-frequency = <10000000>; interrupt-parent = <&gic>; interrupts = <0 43 4>; };
+    };
+    gpio0: gpio@d000000 { compatible = "arm,pl061", "arm,primecell"; reg = <0x0 0x0d000000 0x0 0x1000>; gpio-controller; #gpio-cells = <2>;
+      cam_triggers { /* camera trigger lines 0..3 */ };
+    };
+    gic: interrupt-controller@8000000 { compatible = "arm,gic-400"; reg = <0x0 0x08000000 0x0 0x10000>, <0x0 0x08010000 0x0 0x10000>; interrupt-controller; #interrupt-cells = <3>; };
+  };
+};

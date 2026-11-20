@@ -1,0 +1,4 @@
+# DBC-like: SIGNAL name can_id start_bit length scale offset signed
+SIGNAL SteeringAngle 256 0 16 0.1 0 1
+SIGNAL VehicleSpeed 256 16 16 0.01 0 0
+SIGNAL BrakePressed 512 0 1 1 0 0

@@ -1,0 +1,4 @@
+[    0.000] Linux version 6.6 (adas-virt)
+[    0.401] i2c imu probed (parallel init)
+[    0.620] spi canfd probed (deferred)
+[    1.150] camera pipeline ready

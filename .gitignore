@@ -1,0 +1,14 @@
+*.o
+*.ko
+*.mod*
+modules.order
+Module.symvers
+__pycache__/
+.pytest_cache/
+build/
+*.pyc
+gateway/gateway
+gateway/test_gateway
+.deploy/
+*.dtb
+tmp/
